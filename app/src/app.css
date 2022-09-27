@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+    font-family: 'Digital-7 Mono';
+  }
+  
+  @font-face {
+    font-family: "Digital-7 Mono";
+    src: local("Digital-7 Mono"),
+    url("/assets/fonts/digital-7-mono.ttf") format("truetype");
+  }

@@ -1,0 +1,193 @@
+serialport:
+  baudrate: 5760
+  bytesize: EIGHTBITS
+  parity: PARITY_EVEN
+  port: /dev/ttyUSB0
+  stopbits: STOPBITS_ONE
+PricePerUnit:
+  type_91: 36.83
+  type_95: 37.1
+  type_95+: 44.59
+  type_B7: 0.0
+  type:B20: 0.0
+  type_DS: 0.0
+  type_DS+: 36.83
+  type_E20: 35.99
+decimal_off_unit: 4
+pump_grade:
+  pump1:
+    address: 127.0.0.1:46217
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_E20
+    grade3: type_95+
+    grade4: type_DS+
+    grade5: type_E20
+    grade6: type_95+
+  pump2:
+    address: 127.0.0.1:46217
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_E20
+    grade3: type_95+
+    grade4: type_DS+
+    grade5: type_E20
+    grade6: type_95+
+  pump3:
+    address: 192.168.0.102:9500
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_95+
+    grade2: type_E20
+    grade3: type_DS+
+    grade4: type_95+
+    grade5: type_E20
+    grade6: type_DS+
+  pump4:
+    address: 192.168.0.103:9500
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_95+
+    grade2: type_E20
+    grade3: type_DS+
+    grade4: type_95+
+    grade5: type_E20
+    grade6: type_DS+
+  pump5:
+    address: 192.168.0.106:9500
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_E20
+    grade3: type_95+
+    grade4: type_DS+
+    grade5: type_E20
+    grade6: type_95+
+  pump6:
+    address: 192.168.0.105:9500
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_E20
+    grade3: type_95+
+    grade4: type_DS+
+    grade5: type_E20
+    grade6: type_95+
+  pump7:
+    address: 192.168.0.107:9500
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_E20
+    grade3: type_95+
+    grade4: type_DS+
+    grade5: type_E20
+    grade6: type_95+
+  pump8:
+    address: 192.168.0.108:9500
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_E20
+    grade3: type_95+
+    grade4: type_DS+
+    grade5: type_E20
+    grade6: type_95+
+  pump9:
+    address: 127.0.0.1:46217
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_95
+    grade3: type_91
+    grade4: type_DS+
+    grade5: type_95
+    grade6: type_91
+  pump10:
+    address: 127.0.0.1:46217
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_91
+    grade2: type_95
+    grade3: type_DS+
+    grade4: type_91
+    grade5: type_95
+    grade6: type_DS+
+  pump11:
+    address: 192.168.0.104:9500
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_91
+    grade2: type_95
+    grade3: type_DS+
+    grade4: type_91
+    grade5: type_95
+    grade6: type_DS+
+  pump12:
+    address: 192.168.0.101:9500
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_91
+    grade2: type_95
+    grade3: type_DS+
+    grade4: type_91
+    grade5: type_95
+    grade6: type_DS+
+  pump13:
+    address: 127.0.0.1:46217
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_95
+    grade3: type_91
+    grade4: type_DS+
+    grade5: type_95
+    grade6: type_91
+  pump14:
+    address: 127.0.0.1:46217
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_95
+    grade3: type_91
+    grade4: type_DS+
+    grade5: type_95
+    grade6: type_91
+  pump15:
+    address: 127.0.0.1:46217
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_95
+    grade3: type_91
+    grade4: type_DS+
+    grade5: type_95
+    grade6: type_91
+  pump16:
+    address: 127.0.0.1:46217
+    decimal_preview_price: 2
+    decimal_preview_unit: 3
+    speed_profile: 2.1
+    grade1: type_DS+
+    grade2: type_95
+    grade3: type_91
+    grade4: type_DS+
+    grade5: type_95
+    grade6: type_91
