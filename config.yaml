@@ -1,8 +1,8 @@
 serialport:
-  baudrate: 9600
+  baudrate: 5760
   bytesize: EIGHTBITS
-  parity: PARITY_NONE
-  port: COM3
+  parity: PARITY_EVEN
+  port: /dev/ttyUSB0
   stopbits: STOPBITS_ONE
 PricePerUnit:
   type_91: 37.93

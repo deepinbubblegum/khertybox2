@@ -25,12 +25,12 @@ let  pumpId  = $page.params.pumpId;
     if (Number(pumpId) * 1 !== 0) {
       pumpnumber = Number(pumpId);
     }
-
 onMount(() => {
+    var port = 5000;
+    axios.defaults.baseURL = window.location.protocol + '//' + window.location.hostname + ':' + port;
     async function fetchData(){
                  try {
-              
-                    const res = await axios.get(`http://127.0.0.1:5000/${pumpnumber}`, {});
+                    const res = await axios.get(`/${pumpnumber}`, {});
                     let msg = res.data;
                     if(msg["pump_id"]===pumpnumber){
                         console.log(msg)
