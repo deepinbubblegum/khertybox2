@@ -21,7 +21,7 @@ def update(serv):
                         type, msg_recv = dec.decode(hex_buff)
                         if type != None and type !=0: 
                             serv.send_message(msg_recv,msg_recv['pump_id'])
-                    sleep(0.00017)
+                    sleep(0.00015)
             except Exception as e:
                 serial.close()
                 conn = Connector()

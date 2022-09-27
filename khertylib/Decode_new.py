@@ -1,4 +1,4 @@
-from khertylib import Config
+from khertylib import Config, TCPTrigger
 
 
 class Decode_new:
@@ -8,6 +8,7 @@ class Decode_new:
         self.PricePerUnit = self.conf.price_per_uinit
         self.decimal_off_unit = self.conf.decimal_off_unit
         self.grade_select_pump = {}
+        self.tringger = TCPTrigger()
 
     def decode(self, hex_pkg):
         decoded_type = None
@@ -145,6 +146,11 @@ class Decode_new:
         grade_mesage['grade_type'] = self.grade_type_name(
             pump_id, int(msg_box_pkg[5][1]))
         self.grade_select_pump[str(pump_id)] = grade_mesage
+        try:
+            address = self.pump_conf[f'pump{pump_id}']['address']
+            self.tringger.tringger(address=address, pump=pump_id)
+        except:
+            print('open tringger error')
 
         return data_status
 
@@ -195,5 +201,10 @@ class Decode_new:
                 data_status['grade_type'], data_status['price_per_unit'])  # update config
             self.PricePerUnit[data_status['grade_type']
                               ] = data_status['price_per_unit']
+        try:
+            address = self.pump_conf[f'pump{pump_number}']['address']
+            self.tringger.endtransaction(address=address, pump=pump_number)
+        except:
+            print('close tringger error')
 
         return data_status
