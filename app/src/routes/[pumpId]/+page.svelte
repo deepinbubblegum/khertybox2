@@ -26,7 +26,7 @@ let  pumpId  = $page.params.pumpId;
       pumpnumber = Number(pumpId);
     }
 onMount(() => {
-    var port = 5000;
+    const port = 5000;
     axios.defaults.baseURL = window.location.protocol + '//' + window.location.hostname + ':' + port;
     async function fetchData(){
                  try {
@@ -36,7 +36,7 @@ onMount(() => {
                         console.log(msg)
                         if (msg['type'] === 1) 
                         {
-                            if (stateCount >= 10) {//reset after 20 second 
+                            if (stateCount >= 30) {//reset after 30 second 
                                 stateCount = 0;
                                 RealTimePrice=0;
                                 PreviewPrice=0
@@ -108,7 +108,7 @@ onMount(() => {
       PreviewPrice=RealTimePrice
       PreviewUnit=RealTimePrice/PricePerUnit
       
-		},2000) // 2 second per request
+		},1000) // 2 second per request
 
     return()=>clearInterval(interval)
 
