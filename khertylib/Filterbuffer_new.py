@@ -65,6 +65,9 @@ class Filterbuffer_new:
         return len(self.buffer) > 0
 
     def SetHeaderType_and_waitmore(self, head, mode, wait):
-        self.buff_filter.append(head)
-        self.buff_size = wait
-        self.mode = mode
+        try:
+            self.buff_filter.append(head)
+            self.buff_size = wait
+            self.mode = mode
+        except:
+            pass

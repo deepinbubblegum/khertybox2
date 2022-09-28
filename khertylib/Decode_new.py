@@ -88,125 +88,141 @@ class Decode_new:
 
     # funcion for reduce codeing
     def grade_type_name(self, pump_id, grade):
-        str_pump_id = f'pump{str(pump_id)}'
-        str_grade_id = f'grade{str(grade)}'
-        pump_data = self.pump_conf[str_pump_id]
-        grade_type = pump_data[str_grade_id]
-        return grade_type
+        try:
+            str_pump_id = f'pump{str(pump_id)}'
+            str_grade_id = f'grade{str(grade)}'
+            pump_data = self.pump_conf[str_pump_id]
+            grade_type = pump_data[str_grade_id]
+            return grade_type
+        except:
+            pass
 
     def reverse_read_data(self, data_array):
-        data_array.reverse()
-        result = ''
-        for data in data_array:
-            result += data[1]
-        return result
+        try:
+            data_array.reverse()
+            result = ''
+            for data in data_array:
+                result += data[1]
+            return result
+        except:
+            pass
 
     def text_to_float(self, full_text, decimal_places):
-        integer = full_text[:decimal_places]
-        decimal = full_text[decimal_places:]
-        translate = float(f'{integer}.{decimal}')
-        return translate
+        try:
+            integer = full_text[:decimal_places]
+            decimal = full_text[decimal_places:]
+            translate = float(f'{integer}.{decimal}')
+            return translate
+        except:
+            pass
     # =================================
 
     # realtime price decode and format
 
     def realtime_price(self, pump_id, msg_box_pkg):
-
-        price_decode = self.reverse_read_data(msg_box_pkg)
-        price_realtime = self.text_to_float(
-            price_decode, self.decimal_off_unit)
-
-        data_status = {
-            "type": 3,
-            "pump_id": pump_id,
-            "price": price_realtime,
-            "PriceUnitPeer": self.PricePerUnit,
-        }
         try:
-            data_status['grade_type'] = self.grade_select_pump[str(pump_id)]['grade_type']
+            price_decode = self.reverse_read_data(msg_box_pkg)
+            price_realtime = self.text_to_float(
+                price_decode, self.decimal_off_unit)
+
+            data_status = {
+                "type": 3,
+                "pump_id": pump_id,
+                "price": price_realtime,
+                "PriceUnitPeer": self.PricePerUnit,
+            }
+            try:
+                data_status['grade_type'] = self.grade_select_pump[str(pump_id)]['grade_type']
+            except:
+                pass
+
+            return data_status
         except:
             pass
-
-        return data_status
 
     # 4.9.4.4 Extended Pump Status (010)
 
     def extended_pump_status(self, pump_id, msg_box_pkg):
-        grade_mesage = {}
-        pump = f'pump{pump_id}'
-        data_status = {
-            "type": 4,
-            "pump_id": pump_id,
-            "grade_type": self.grade_type_name(pump_id, int(msg_box_pkg[5][1])),
-            "PriceUnitPeer": self.PricePerUnit,
-            "decimal_preview_price": self.pump_conf[pump]['decimal_preview_price'],
-            "decimal_preview_unit": self.pump_conf[pump]['decimal_preview_unit'],
-            "speed_profile": self.pump_conf[pump]['speed_profile'],
-        }
-
-        grade_mesage['grade_selection'] = int(msg_box_pkg[2][1])
-        grade_mesage['grade_type'] = self.grade_type_name(
-            pump_id, int(msg_box_pkg[5][1]))
-        self.grade_select_pump[str(pump_id)] = grade_mesage
         try:
-            address = self.pump_conf[f'pump{pump_id}']['address']
-            self.tringger.tringger(address=address, pump=pump_id)
-        except:
-            print('open tringger error')
+            grade_mesage = {}
+            pump = f'pump{pump_id}'
+            data_status = {
+                "type": 4,
+                "pump_id": pump_id,
+                "grade_type": self.grade_type_name(pump_id, int(msg_box_pkg[5][1])),
+                "PriceUnitPeer": self.PricePerUnit,
+                "decimal_preview_price": self.pump_conf[pump]['decimal_preview_price'],
+                "decimal_preview_unit": self.pump_conf[pump]['decimal_preview_unit'],
+                "speed_profile": self.pump_conf[pump]['speed_profile'],
+            }
 
-        return data_status
+            grade_mesage['grade_selection'] = int(msg_box_pkg[2][1])
+            grade_mesage['grade_type'] = self.grade_type_name(
+                pump_id, int(msg_box_pkg[5][1]))
+            self.grade_select_pump[str(pump_id)] = grade_mesage
+            try:
+                address = self.pump_conf[f'pump{pump_id}']['address']
+                self.tringger.tringger(address=address, pump=pump_id)
+            except:
+                print('open tringger error')
+
+            return data_status
+        except:
+            pass
 
     def transaction_decode(self, command_box):  # decode referent doc topic 4.5
-
-        pump_number = int(command_box[4][1], 16) + 1  # pump number start 0
-
-        grade_number_hex = command_box[9]  # Grade position
-        grade_number = int(grade_number_hex[1], 16) + 1
-
-        transaction_type_next = command_box[10]
-        if transaction_type_next == 'f4':
-            transaction_type_level = 1
-        elif transaction_type_next == 'f5':
-            transaction_type_level = 2
-        else:
-            transaction_type_level = None
-
-        ppu_point_position = 2
-        ppu_data_arr = command_box[12:16]
-        price_per_unit = self.reverse_read_data(ppu_data_arr)
-        price_per_unit = self.text_to_float(price_per_unit, ppu_point_position)
-
-        point_position = 3  # 3 when config position manual
-        transaction_vol_arr = command_box[17:23]
-        transaction_vol = self.reverse_read_data(transaction_vol_arr)
-        transaction_vol = self.text_to_float(transaction_vol, point_position)
-
-        point_position = self.decimal_off_unit
-        transaction_money_arr = command_box[24:30]
-        transaction_money = self.reverse_read_data(transaction_money_arr)
-        transaction_money = self.text_to_float(
-            transaction_money, point_position)
-
-        data_status = {
-            "type": 5,
-            "pump_id": pump_number,
-            "grade_number": grade_number,
-            "transaction_type_level": transaction_type_level,
-            "price_per_unit": price_per_unit,
-            "transaction_vol": transaction_vol,
-            "transaction_money": transaction_money,
-            "grade_type": self.grade_type_name(pump_number, grade_number)
-        }
-
-        if self.PricePerUnit[data_status['grade_type']] != data_status['price_per_unit']:
-            self.conf.set_state(
-                data_status['grade_type'], data_status['price_per_unit'])  # update config
-            self.PricePerUnit[data_status['grade_type']
-                              ] = data_status['price_per_unit']
         try:
-            address = self.pump_conf[f'pump{pump_number}']['address']
-            self.tringger.endtransaction(address=address, pump=pump_number)
-        except:
-            print('close tringger error')
+            pump_number = int(command_box[4][1], 16) + 1  # pump number start 0
 
-        return data_status
+            grade_number_hex = command_box[9]  # Grade position
+            grade_number = int(grade_number_hex[1], 16) + 1
+
+            transaction_type_next = command_box[10]
+            if transaction_type_next == 'f4':
+                transaction_type_level = 1
+            elif transaction_type_next == 'f5':
+                transaction_type_level = 2
+            else:
+                transaction_type_level = None
+
+            ppu_point_position = 2
+            ppu_data_arr = command_box[12:16]
+            price_per_unit = self.reverse_read_data(ppu_data_arr)
+            price_per_unit = self.text_to_float(price_per_unit, ppu_point_position)
+
+            point_position = 3  # 3 when config position manual
+            transaction_vol_arr = command_box[17:23]
+            transaction_vol = self.reverse_read_data(transaction_vol_arr)
+            transaction_vol = self.text_to_float(transaction_vol, point_position)
+
+            point_position = self.decimal_off_unit
+            transaction_money_arr = command_box[24:30]
+            transaction_money = self.reverse_read_data(transaction_money_arr)
+            transaction_money = self.text_to_float(
+                transaction_money, point_position)
+
+            data_status = {
+                "type": 5,
+                "pump_id": pump_number,
+                "grade_number": grade_number,
+                "transaction_type_level": transaction_type_level,
+                "price_per_unit": price_per_unit,
+                "transaction_vol": transaction_vol,
+                "transaction_money": transaction_money,
+                "grade_type": self.grade_type_name(pump_number, grade_number)
+            }
+
+            if self.PricePerUnit[data_status['grade_type']] != data_status['price_per_unit']:
+                self.conf.set_state(
+                    data_status['grade_type'], data_status['price_per_unit'])  # update config
+                self.PricePerUnit[data_status['grade_type']
+                                ] = data_status['price_per_unit']
+            try:
+                address = self.pump_conf[f'pump{pump_number}']['address']
+                self.tringger.endtransaction(address=address, pump=pump_number)
+            except:
+                print('close tringger error')
+
+            return data_status
+        except:
+            pass
