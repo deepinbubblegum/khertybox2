@@ -52,6 +52,7 @@
 						console.log('call');
 					} else if (msg['type'] === 3) {
 						RealTimePrice = msg['price'];
+						PriceUnitList = msg['PriceUnitPeer'];
 						if (msg['grade_type']) {
 							type_fuel = msg['grade_type'];
 							// @ts-ignore
