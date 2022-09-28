@@ -34,7 +34,7 @@
 				if (msg['pump_id'] === pumpnumber) {
 					console.log(msg);
 					if (msg['type'] === 1) {
-						if (stateCount >= 60) {
+						if (stateCount >= 360) {
 							//reset after 30 second
 							stateCount = 0;
 							RealTimePrice = 0;
