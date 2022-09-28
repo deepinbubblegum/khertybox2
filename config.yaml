@@ -7,11 +7,11 @@ serialport:
 PricePerUnit:
   type_91: 37.93
   type_95: 36.5
-  type_95+: 43.99
+  type_95p: 43.99
   type_B7: 0.0
   type_B20: 0.0
   type_DS: 0.0
-  type_DS+: 46.21
+  type_DSp: 46.21
   type_E20: 35.39
 decimal_off_unit: 4
 pump_grade:
@@ -20,98 +20,98 @@ pump_grade:
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_E20
-    grade3: type_95+
-    grade4: type_DS+
+    grade3: type_95p
+    grade4: type_DSp
     grade5: type_E20
-    grade6: type_95+
+    grade6: type_95p
   pump2:
     address: false
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_E20
-    grade3: type_95+
-    grade4: type_DS+
+    grade3: type_95p
+    grade4: type_DSp
     grade5: type_E20
-    grade6: type_95+
+    grade6: type_95p
   pump3:
     address: http://192.168.0.103:4000/api
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_95+
+    grade1: type_95p
     grade2: type_E20
-    grade3: type_DS+
-    grade4: type_95+
+    grade3: type_DSp
+    grade4: type_95p
     grade5: type_E20
-    grade6: type_DS+
+    grade6: type_DSp
   pump4:
     address: http://192.168.0.102:4000/api
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_95+
+    grade1: type_95p
     grade2: type_E20
-    grade3: type_DS+
-    grade4: type_95+
+    grade3: type_DSp
+    grade4: type_95p
     grade5: type_E20
-    grade6: type_DS+
+    grade6: type_DSp
   pump5:
     address: http://192.168.0.106:4000/api
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_E20
-    grade3: type_95+
-    grade4: type_DS+
+    grade3: type_95p
+    grade4: type_DSp
     grade5: type_E20
-    grade6: type_95+
+    grade6: type_95p
   pump6:
     address: http://192.168.0.105:4000/api
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_E20
-    grade3: type_95+
-    grade4: type_DS+
+    grade3: type_95p
+    grade4: type_DSp
     grade5: type_E20
-    grade6: type_95+
+    grade6: type_95p
   pump7:
     address: http://192.168.0.107:4000/api
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_E20
-    grade3: type_95+
-    grade4: type_DS+
+    grade3: type_95p
+    grade4: type_DSp
     grade5: type_E20
-    grade6: type_95+
+    grade6: type_95p
   pump8:
     address: http://192.168.0.108:4000/api
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_E20
-    grade3: type_95+
-    grade4: type_DS+
+    grade3: type_95p
+    grade4: type_DSp
     grade5: type_E20
-    grade6: type_95+
+    grade6: type_95p
   pump9:
     address: false
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_95
     grade3: type_91
-    grade4: type_DS+
+    grade4: type_DSp
     grade5: type_95
     grade6: type_91
   pump10:
@@ -121,10 +121,10 @@ pump_grade:
     speed_profile: 1.1
     grade1: type_91
     grade2: type_95
-    grade3: type_DS+
+    grade3: type_DSp
     grade4: type_91
     grade5: type_95
-    grade6: type_DS+
+    grade6: type_DSp
   pump11:
     address: http://192.168.0.104:4000/api
     decimal_preview_price: 2
@@ -132,10 +132,10 @@ pump_grade:
     speed_profile: 1.1
     grade1: type_91
     grade2: type_95
-    grade3: type_DS+
+    grade3: type_DSp
     grade4: type_91
     grade5: type_95
-    grade6: type_DS+
+    grade6: type_DSp
   pump12:
     address: http://192.168.0.101:4000/api
     decimal_preview_price: 2
@@ -143,19 +143,19 @@ pump_grade:
     speed_profile: 1.1
     grade1: type_91
     grade2: type_95
-    grade3: type_DS+
+    grade3: type_DSp
     grade4: type_91
     grade5: type_95
-    grade6: type_DS+
+    grade6: type_DSp
   pump13:
     address: false
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_95
     grade3: type_91
-    grade4: type_DS+
+    grade4: type_DSp
     grade5: type_95
     grade6: type_91
   pump14:
@@ -163,10 +163,10 @@ pump_grade:
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_95
     grade3: type_91
-    grade4: type_DS+
+    grade4: type_DSp
     grade5: type_95
     grade6: type_91
   pump15:
@@ -174,10 +174,10 @@ pump_grade:
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_95
     grade3: type_91
-    grade4: type_DS+
+    grade4: type_DSp
     grade5: type_95
     grade6: type_91
   pump16:
@@ -185,9 +185,9 @@ pump_grade:
     decimal_preview_price: 2
     decimal_preview_unit: 3
     speed_profile: 1.1
-    grade1: type_DS+
+    grade1: type_DSp
     grade2: type_95
     grade3: type_91
-    grade4: type_DS+
+    grade4: type_DSp
     grade5: type_95
     grade6: type_91
