@@ -13,74 +13,77 @@ class Decode_new:
     def decode(self, hex_pkg):
         decoded_type = None
         decoded_msg = None
-        header_hex = hex_pkg[0]
-        state = header_hex[0]
-        match state:
-            case '0':  # state data error
-                pump_id = int(header_hex[1], 16)
-                decoded_type = 0
-                decoded_msg = {
-                    "type": 0,
-                    "pump_id": pump_id,
-                    "status": "Unknown format"
-                }
-            case '6':  # state off
-                pump_id = int(header_hex[1], 16)
-                decoded_type = 1
-                decoded_msg = {
-                    "type": 1,
-                    "pump_id": pump_id,
-                    "status": "off",
-                }
-            case '7':  # state call
-                pump_id = int(header_hex[1], 16)
-                pump = f'pump{pump_id}'
-                decoded_type = 2
-                decoded_msg = {
-                    "type": 2,
-                    "pump_id": pump_id,
-                    "status": "call",
-                    "PriceUnitPeer": self.PricePerUnit,
-                    "decimal_preview_price": self.pump_conf[pump]['decimal_preview_price'],
-                    "decimal_preview_unit": self.pump_conf[pump]['decimal_preview_unit'],
-                    "speed_profile": self.pump_conf[pump]['speed_profile'],
-                }
+        try:
+            header_hex = hex_pkg[0]
+            state = header_hex[0]
+            match state:
+                case '0':  # state data error
+                    pump_id = int(header_hex[1], 16)
+                    decoded_type = 0
+                    decoded_msg = {
+                        "type": 0,
+                        "pump_id": pump_id,
+                        "status": "Unknown format"
+                    }
+                case '6':  # state off
+                    pump_id = int(header_hex[1], 16)
+                    decoded_type = 1
+                    decoded_msg = {
+                        "type": 1,
+                        "pump_id": pump_id,
+                        "status": "off",
+                    }
+                case '7':  # state call
+                    pump_id = int(header_hex[1], 16)
+                    pump = f'pump{pump_id}'
+                    decoded_type = 2
+                    decoded_msg = {
+                        "type": 2,
+                        "pump_id": pump_id,
+                        "status": "call",
+                        "PriceUnitPeer": self.PricePerUnit,
+                        "decimal_preview_price": self.pump_conf[pump]['decimal_preview_price'],
+                        "decimal_preview_unit": self.pump_conf[pump]['decimal_preview_unit'],
+                        "speed_profile": self.pump_conf[pump]['speed_profile'],
+                    }
 
-            case '9':  # state busy and realtime price
-                pump_id = int(header_hex[1], 16)
-                msg_box_pkg = hex_pkg[1:]
-                decoded_type = 3
-                decoded_msg = self.realtime_price(pump_id, msg_box_pkg)
+                case '9':  # state busy and realtime price
+                    pump_id = int(header_hex[1], 16)
+                    msg_box_pkg = hex_pkg[1:]
+                    decoded_type = 3
+                    decoded_msg = self.realtime_price(pump_id, msg_box_pkg)
 
-            case _:
-                match header_hex:
-                    case 'ba':
-                        # find pump id 0xb{number} or 0xc{number}
-                        pkg_pump_id = hex_pkg[3]
-                        if pkg_pump_id[0] == 'b':
-                            pump_id = int(pkg_pump_id[1], 16)
-                            if pump_id == 0:
-                                pump_id = 16
-                        elif pkg_pump_id[0] == 'c':
-                            pump_id = int(pkg_pump_id[1], 16) + 9
-                        else:
-                            pump_id = None
-                        # find special funtion command code SF3, SF2, SF1 = index 6, 5, 4
-                        sf1, sf2, sf3 = hex_pkg[4], hex_pkg[5], hex_pkg[6]
-                        sf_code = f'{sf3[1]}{sf2[1]}{sf1[1]}'
+                case _:
+                    match header_hex:
+                        case 'ba':
+                            # find pump id 0xb{number} or 0xc{number}
+                            pkg_pump_id = hex_pkg[3]
+                            if pkg_pump_id[0] == 'b':
+                                pump_id = int(pkg_pump_id[1], 16)
+                                if pump_id == 0:
+                                    pump_id = 16
+                            elif pkg_pump_id[0] == 'c':
+                                pump_id = int(pkg_pump_id[1], 16) + 9
+                            else:
+                                pump_id = None
+                            # find special funtion command code SF3, SF2, SF1 = index 6, 5, 4
+                            sf1, sf2, sf3 = hex_pkg[4], hex_pkg[5], hex_pkg[6]
+                            sf_code = f'{sf3[1]}{sf2[1]}{sf1[1]}'
 
-                        if sf_code == '010':
-                            # extract msg from data blox format
-                            msg_box_pkg = hex_pkg[9:-4]
+                            if sf_code == '010':
+                                # extract msg from data blox format
+                                msg_box_pkg = hex_pkg[9:-4]
 
-                            decoded_type = 4
-                            decoded_msg = self.extended_pump_status(
-                                pump_id, msg_box_pkg)  # call fun Extended Pump Status
-                    case 'ff':
-                        rest_type = hex_pkg[1]
-                        if int(rest_type[1]) >= 1 and int(rest_type[1]) <= 3:  # fx 1,2 or 3
-                            decoded_type = 5
-                            decoded_msg = self.transaction_decode(hex_pkg)
+                                decoded_type = 4
+                                decoded_msg = self.extended_pump_status(
+                                    pump_id, msg_box_pkg)  # call fun Extended Pump Status
+                        case 'ff':
+                            rest_type = hex_pkg[1]
+                            if int(rest_type[1]) >= 1 and int(rest_type[1]) <= 3:  # fx 1,2 or 3
+                                decoded_type = 5
+                                decoded_msg = self.transaction_decode(hex_pkg)
+        except Exception as e:
+            print(e)
         return decoded_type, decoded_msg
 
     # funcion for reduce codeing
@@ -130,7 +133,6 @@ class Decode_new:
 
     def extended_pump_status(self, pump_id, msg_box_pkg):
         grade_mesage = {}
-
         pump = f'pump{pump_id}'
         data_status = {
             "type": 4,
