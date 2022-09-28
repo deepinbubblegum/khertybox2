@@ -19,7 +19,7 @@ class Connector:
                 bytesize=BYTESIZE[serial_conf['bytesize']],
                 parity=PARITY[serial_conf['parity']],
                 stopbits=STOPBITS[serial_conf['stopbits']],
-                timeout=None,
+                timeout=0.001,
             )
         except Exception as e:
             print("try connect serial port...")
