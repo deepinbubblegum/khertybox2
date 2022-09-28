@@ -21,17 +21,20 @@ class rest_server:
         api.add_resource(self.mes, "/<int:id>")
 
     def send_message(self, msg, id):
-        global data
-        if len(data[id])!=0:
-            if(data[id]['type']==5 and msg['type']==1):
-                if('delay' in data[id]):
-                    data[id]=msg
+        try:
+            global data
+            if len(data[id])!=0:
+                if(data[id]['type']==5 and msg['type']==1):
+                    if('delay' in data[id]):
+                        data[id]=msg
+                    else:
+                        data[id]['delay']="delay"  #if not have any delay it will replace by type 1 before client request it
                 else:
-                    data[id]['delay']="delay"  #if not have any delay it will replace by type 1 before client request it
+                    data[id]=msg
             else:
                 data[id]=msg
-        else:
-            data[id]=msg
+        except:
+            pass
 
     def start(self):
         app.run(host='0.0.0.0', port=5000, debug=False)
