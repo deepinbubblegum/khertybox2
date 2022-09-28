@@ -116,11 +116,11 @@ class Decode_new:
         data_status = {
             "type": 3,
             "pump_id": pump_id,
-            "price": price_realtime
+            "price": price_realtime,
+            "PriceUnitPeer": self.PricePerUnit,
         }
         try:
-            data_status['grade_type'] = self.grade_select_pump[str(
-                pump_id)]['grade_type']
+            data_status['grade_type'] = self.grade_select_pump[str(pump_id)]['grade_type']
         except:
             pass
 
