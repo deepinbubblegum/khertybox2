@@ -23,10 +23,10 @@ def update(serv):
                             serv.send_message(msg_recv,msg_recv['pump_id'])
                     sleep(0.00017)
             except Exception as e:
-                pass
-                # serial.close()
-                # conn = Connector()
-                # serial = conn.serial
+                serial.close()
+                sleep(0.00015)
+                conn = Connector()
+                serial = conn.serial
             sleep(0.00015)
     except Exception as e:
         print('something wrong...')
