@@ -13,7 +13,7 @@ def save_packet(packet):
     if now > result:
         file_name = now.strftime("%d-%m-%Y_%H-%M-%S") + '.txt'
         result = now + timedelta(minutes=2)
-    with open('./packet' + file_name, "a") as file:
+    with open('./packet/' + file_name, "a") as file:
         file.write(packet)
 
 def update(serv):
