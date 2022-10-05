@@ -2,6 +2,19 @@
 from threading import Thread
 from time import sleep
 from khertylib import Connector, Filterbuffer, Decoder, rest_server,Decode_new,Filterbuffer_new
+from datetime import datetime, timedelta
+
+now = datetime.now()
+result = now + timedelta(minutes=2)
+file_name = now.strftime("%d-%m-%Y_%H-%M-%S") + '.txt'
+
+def save_packet(packet):
+    now = datetime.now()
+    if now > result:
+        file_name = now.strftime("%d-%m-%Y_%H-%M-%S") + '.txt'
+        result = now + timedelta(minutes=2)
+    with open(file_name, "a") as file:
+        file.write(packet)
 
 def update(serv):
     try:
@@ -16,6 +29,7 @@ def update(serv):
             try:
                 while serial.in_waiting:
                     bytes = serial.read(1)
+                    save_packet(bytes)
                     hex_buff = filter_buff.recv(bytes)
                     if hex_buff is not None:
                         type, msg_recv = dec.decode(hex_buff)
