@@ -4,15 +4,14 @@ from time import sleep
 from khertylib import Connector, Filterbuffer, Decoder, rest_server,Decode_new,Filterbuffer_new
 from datetime import datetime, timedelta
 
-global now
-global result
-global file_name
-
 now = datetime.now()
 result = now + timedelta(minutes=2)
 file_name = now.strftime("%d-%m-%Y_%H-%M-%S") + '.txt'
 
 def save_packet(packet):
+    global now 
+    global result
+    global file_name
     now = datetime.now()
     if now > result:
         file_name = now.strftime("%d-%m-%Y_%H-%M-%S") + '.txt'
