@@ -4,7 +4,15 @@ from time import sleep
 from khertylib import Connector, Filterbuffer, Decoder, rest_server,Decode_new,Filterbuffer_new
 from datetime import datetime, timedelta
 
-def save_packet(packet, now, result, file_name):
+global now
+global result
+global file_name
+
+now = datetime.now()
+result = now + timedelta(minutes=2)
+file_name = now.strftime("%d-%m-%Y_%H-%M-%S") + '.txt'
+
+def save_packet(packet):
     now = datetime.now()
     if now > result:
         file_name = now.strftime("%d-%m-%Y_%H-%M-%S") + '.txt'
@@ -22,14 +30,11 @@ def update(serv):
         filter_buff = Filterbuffer_new()
         dec = Decode_new()
         
-        now = datetime.now()
-        result = now + timedelta(minutes=2)
-        file_name = now.strftime("%d-%m-%Y_%H-%M-%S") + '.txt'
         while True:
             try:
                 while serial.in_waiting:
                     bytes = serial.read(1)
-                    save_packet(bytes, now, result, file_name)
+                    save_packet(bytes)
                     hex_buff = filter_buff.recv(bytes)
                     if hex_buff is not None:
                         type, msg_recv = dec.decode(hex_buff)
